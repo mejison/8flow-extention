@@ -1,6 +1,7 @@
 <template>
     <div class="dashboard">
-        dashboard
+        <a href="#" class="success" v-show="message">{{ message }}</a>
+        <button class="btn btn-primary" :class="{'disabled': submited}" @click="createNewIncident" :disabled="submited">New Incident</button>
         <button class="btn" @click="signOut">Logout</button>
     </div>
 </template>
@@ -17,14 +18,31 @@
 
         props: ['user'],
 
-        async created() {
-            api.getFromTable('sys_user')
-                .then((data) => {
-                    console.log(data)
-                });
+        data() {
+            return {
+                message: '',
+                submited: false,
+            }
         },
 
         methods: {
+            createNewIncident() {
+                this.submited = true;
+                api.insertToTable('incident', {
+                    "description": JSON.stringify({"requested_for": { 
+                        email: this.user.email,
+                        name: this.user.displayName,
+                     }}),
+                }).then(() => {
+                    this.message = "Successfuly inserted";
+                    this.submited = false;
+                    setTimeout(() => {
+                        this.message = "";
+                    }, 3000);
+                }).catch(() => {
+                    this.submited = false;
+                })
+            },
             signOut() {
                 firebase
                     .auth()
@@ -41,5 +59,13 @@
     .dashboard {
         display: flex;
         flex-direction: column;
+    }
+
+    .dashboard .btn {
+        margin-bottom: 15px;
+    }
+
+    .dashboard a {
+        margin-bottom: 15px;
     }
 </style>
