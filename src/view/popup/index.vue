@@ -1,28 +1,51 @@
 <template>
-  <div class="main_app">
-    <h1>Hello {{msg}}</h1>
+  <div class="main_app" v-if="view">
+    <component 
+        :is="view"
+        :user="user"
+        @go-to="goTo"
+    ></component>
   </div>
 </template>
 
 <script>
+import welcome from './welcome'
+import register from './register'
+import login from './login'
+import dashboard from './dashboard'
+
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/auth';
+import 'firebase/compat/database';
+
 export default {
-  name: 'popupView',
-  data () {
-    return {
-      msg: 'popup2'
-    }
-  }
-}
+    name: 'popupView',
 
+    created() {
+        firebase.auth().onAuthStateChanged(user =>  {
+            this.goTo(user ? 'dashboard' : 'welcome');
+            this.user = user;
+        });
+    },
+
+    data() {
+        return {
+            view: '',
+            user: null,
+        }
+    },
+
+    methods: {
+        goTo(view) {
+            this.view = view
+        },
+    },
+
+    components: {
+        welcome,
+        register,
+        login,
+        dashboard,
+    },
+}
 </script>
-
-<style>
-.main_app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
