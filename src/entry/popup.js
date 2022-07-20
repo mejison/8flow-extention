@@ -17,7 +17,6 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-
 import "../assets/main.css"
 
 new Vue({

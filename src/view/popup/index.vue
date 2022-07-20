@@ -1,5 +1,6 @@
 <template>
   <div class="main_app" v-if="view">
+    {{ items }}
     <component 
         :is="view"
         :user="user"
