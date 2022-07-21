@@ -6,13 +6,12 @@ import 'firebase/compat/database';
 Vue.config.productionTip = false;
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCd60c2M34eatzFUT282nEAfuzwLB5Ttpk",
-  authDomain: "flow-extention.firebaseapp.com",
-  projectId: "flow-extention",
-  storageBucket: "flow-extention.appspot.com",
-  messagingSenderId: "626171795152",
-  appId: "1:626171795152:web:eee74958e3624e01b330d5",
-  measurementId: "G-QTYD5K1WQG"
+  apiKey: "AIzaSyDWnAPpa_wKCAeneN2FoSPNGjQ8lIfCTTc",
+  authDomain: "flow-extension.firebaseapp.com",
+  projectId: "flow-extension",
+  storageBucket: "flow-extension.appspot.com",
+  messagingSenderId: "966140707617",
+  appId: "1:966140707617:web:35dddf6c4e2e97f113f460"
 };
 
 firebase.initializeApp(firebaseConfig);
