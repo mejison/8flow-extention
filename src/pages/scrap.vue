@@ -49,7 +49,19 @@ export default {
         },
         getVariables(data) {
             const variables = JSON.parse(data);
+            this.copyToClipBoard(data);
             this.setVariables([...variables])
+        },
+        copyToClipBoard(str) {
+           const el = document.createElement('textarea');
+            el.value = str;
+            el.setAttribute('readonly', '');
+            el.style.position = 'absolute';
+            el.style.left = '-9999px';
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
         },
         onClickScrap() {
            chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
