@@ -13,6 +13,10 @@
         "48": "./icon-48x48.png",
         "128": "./icon-128x128.png"  
     },
+    "web_accessible_resources": [{
+        "resources": ["script.js"],
+        "matches": ["<all_urls>"]
+    }],
     "content_scripts": [ 
         { 
             "matches": [

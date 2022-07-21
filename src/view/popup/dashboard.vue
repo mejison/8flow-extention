@@ -1,7 +1,8 @@
 <template>
     <div class="dashboard">
         <a href="#" class="success" v-show="message">{{ message }}</a>
-        <button class="btn btn-primary" :class="{'disabled': submited}" @click="createNewIncident" :disabled="submited">New Incident</button>
+        <component :is="page"></component>
+        <!-- <button class="btn btn-primary" :class="{'disabled': submited}" @click="createNewIncident" :disabled="submited">New Incident</button> -->
         <button class="btn" @click="signOut">Logout</button>
     </div>
 </template>
@@ -13,13 +14,20 @@
 
     import * as api from '../../api'
 
-    export default {
+    import scrap from '../../pages/scrap.vue'
+
+    export default { 
         name: 'dashbaord',
+
+        components: {
+            scrap
+        },
 
         props: ['user'],
 
         data() {
             return {
+                page: 'scrap',
                 message: '',
                 submited: false,
             }

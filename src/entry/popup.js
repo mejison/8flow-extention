@@ -17,9 +17,11 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-
 import "../assets/main.css"
 
+import store from '../store';
+
 new Vue({
+  store,
   render: (h) => h(App)
 }).$mount('#app')
