@@ -1,19 +1,18 @@
-// const checkAvailableForScraping = () => {
-//     const allowedHosts = ['service-now.com'];
-//     let allow = false;
-//     allowedHosts.forEach((host) => {
-//         allow = document.location.host.includes(host)
-//     });
+const checkAvailableForScraping = () => {
+    const allowedHosts = ['service-now.com'];
+    let allow = false;
+    allowedHosts.forEach((host) => {
+        allow = document.location.host.includes(host)
+    });
     
-//     if ( ! allow) {
-//         return ;
-//     }
+    if ( ! allow) {
+        return ;
+    }
 
-//     return window.gsft_main && ['incident'].includes(window.gsft_main.g_form.tableName)
-// }
+    return true;
+}
 
 let insertedScript = false;
-
 window.scraping = () => {
     if ( ! insertedScript) {
         insertedScript = document.createElement('script');
@@ -32,6 +31,14 @@ window.scraping = () => {
     );
 }
 
+
+window['is-available'] = () => {
+    chrome.runtime.sendMessage({
+        data: checkAvailableForScraping(),
+        event: 'isAvailable',
+    });
+}
+
 chrome.runtime.onMessage.addListener(
     (request, sender, response) => {
         let event = request.event
@@ -41,9 +48,8 @@ chrome.runtime.onMessage.addListener(
 );
 
 document.addEventListener('scraped', function(e) {
-    console.log(e.detail)
-   
     chrome.runtime.sendMessage({
-        data: e.detail
+        data: e.detail,
+        event: 'getVariables',
     });
 });

@@ -15,6 +15,8 @@ export default {
     .welcome {
         display: flex;
         flex-direction: column;
+        height: calc(100vh - 40px);
+        justify-content: center;
     }
 
     .welcome .btn {
